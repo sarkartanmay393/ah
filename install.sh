@@ -22,7 +22,11 @@ echo "Detected: $OS $ARCH"
 URL="https://github.com/$REPO/releases/latest/download/${BINARY_NAME}-${OS}-${ARCH}"
 
 echo "Downloading $BINARY_NAME from $URL..."
-curl -L -o "$BINARY_NAME" "$URL"
+if ! curl -f -L -o "$BINARY_NAME" "$URL"; then
+    echo "Error: Failed to download binary. The release may not exist yet."
+    echo "Check https://github.com/$REPO/releases"
+    exit 1
+fi
 chmod +x "$BINARY_NAME"
 
 echo "Installing to $INSTALL_DIR..."
