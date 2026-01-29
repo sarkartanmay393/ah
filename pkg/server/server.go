@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/bash-shortcuts/ah/pkg/manager"
-	"github.com/bash-shortcuts/ah/pkg/parser"
+	"github.com/sarkartanmay393/ah/pkg/manager"
+	"github.com/sarkartanmay393/ah/pkg/parser"
 )
 
 //go:embed web_dist/*

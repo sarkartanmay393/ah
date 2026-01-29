@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bash-shortcuts/ah/cmd"
+	"github.com/sarkartanmay393/ah/cmd"
 )
 
 func main() {

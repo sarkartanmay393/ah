@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	// Import parser
-	"github.com/bash-shortcuts/ah/pkg/parser"
+	"github.com/sarkartanmay393/ah/pkg/parser"
 )
 
 // CompileAliases merges all active alias files into a single sourceable file

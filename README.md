@@ -33,13 +33,13 @@ curl -sL https://raw.githubusercontent.com/sarkartanmay393/alias-hub/main/instal
 
 ### 📦 Go Install (Developers)
 ```bash
-go install github.com/bash-shortcuts/ah@latest
+go install github.com/sarkartanmay393/ah@latest
 ```
 
 ### 💻 Manual Build
 ```bash
 # Clone and Build
-git clone https://github.com/bash-shortcuts/ah
+git clone https://github.com/sarkartanmay393/ah
 cd ah
 go build -o ah main.go
 ```

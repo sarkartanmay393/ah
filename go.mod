@@ -1,4 +1,4 @@
-module github.com/bash-shortcuts/ah
+module github.com/sarkartanmay393/ah
 
 go 1.25.6
 

@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/bash-shortcuts/ah/pkg/manager"
+
+	"github.com/sarkartanmay393/ah/pkg/manager"
 	"github.com/spf13/cobra"
 )
 

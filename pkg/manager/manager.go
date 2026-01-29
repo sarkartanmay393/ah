@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bash-shortcuts/ah/pkg/parser"
+	"github.com/sarkartanmay393/ah/pkg/parser"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 	BinDir       = "bin"
 	StateFile    = "state"
 	EnvFile      = "env.sh"
-	RegistryRepo = "https://github.com/bash-shortcuts/ah" // Default
+	RegistryRepo = "https://github.com/sarkartanmay393/ah" // Default
 )
 
 func GetRootDir() (string, error) {

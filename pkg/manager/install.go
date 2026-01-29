@@ -8,7 +8,7 @@ import (
 
 	"bufio"
 
-	"github.com/bash-shortcuts/ah/pkg/parser"
+	"github.com/sarkartanmay393/ah/pkg/parser"
 )
 
 // InstallPackage installs a package from the central registry

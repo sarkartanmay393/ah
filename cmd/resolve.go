@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/bash-shortcuts/ah/pkg/server"
+	"github.com/sarkartanmay393/ah/pkg/server"
 	"github.com/spf13/cobra"
 )
 
