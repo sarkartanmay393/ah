@@ -1,10 +1,12 @@
 package manager
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"time"
 )
 
 const (
@@ -15,9 +17,8 @@ const (
 func UpdateRegistry() error {
 	repoURL := os.Getenv("AH_REGISTRY_URL")
 	if repoURL == "" {
-		repoURL = RegistryRepo // now defined in manager.go (wait, need to export it or move it)
+		repoURL = RegistryRepo
 	}
-	// Default to built-in path if env var not set
 
 	root, err := GetRootDir()
 	if err != nil {
@@ -25,22 +26,43 @@ func UpdateRegistry() error {
 	}
 	registryPath := filepath.Join(root, RegistryDir)
 
+	// Create a context with a 30-second timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
 	if _, err := os.Stat(registryPath); os.IsNotExist(err) {
 		// Clone
 		fmt.Printf("Cloning registry from %s...\n", repoURL)
-		cmd := exec.Command("git", "clone", repoURL, registryPath)
+		cmd := exec.CommandContext(ctx, "git", "clone", repoURL, registryPath)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
-		return cmd.Run()
+
+		// Prevent interactive prompts
+		cmd.Env = append(os.Environ(), "GIT_TERMINAL_PROMPT=0", "SSH_ASKPASS=/bin/false")
+
+		if err := cmd.Run(); err != nil {
+			if ctx.Err() == context.DeadlineExceeded {
+				return fmt.Errorf("clone timed out after 30s")
+			}
+			return fmt.Errorf("git clone failed: %w", err)
+		}
+		return nil
 	}
 
 	// Pull
 	fmt.Println("Updating registry...")
-	cmd := exec.Command("git", "-C", registryPath, "pull")
-	// Capture stderr to show detail if needed, but don't fail hard
+	cmd := exec.CommandContext(ctx, "git", "-C", registryPath, "pull")
 	cmd.Stderr = os.Stderr
+
+	// Prevent interactive prompts
+	cmd.Env = append(os.Environ(), "GIT_TERMINAL_PROMPT=0", "SSH_ASKPASS=/bin/false")
+
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Warning: Failed to update registry (using cached data): %v\n", err)
+		if ctx.Err() == context.DeadlineExceeded {
+			fmt.Println("Warning: Registry update timed out (using cached data)")
+		} else {
+			fmt.Printf("Warning: Failed to update registry (using cached data): %v\n", err)
+		}
 		return nil // Soft fail: proceed with existing data
 	}
 	return nil
