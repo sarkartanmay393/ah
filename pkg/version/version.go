@@ -7,4 +7,4 @@ package version
 // overridden at build time with:
 //
 //	go build -ldflags "-X github.com/sarkartanmay393/ah/pkg/version.Version=x.y.z"
-var Version = "1.2.0"
+var Version = "1.2.1"
