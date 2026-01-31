@@ -1,0 +1,23 @@
+# Binaries
+ah
+ah.exe
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test artifacts
+*.out
+*.test
+coverage.out
+
+# Editor/OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Local data
+registry/
+registry-skill/
+.ah/
